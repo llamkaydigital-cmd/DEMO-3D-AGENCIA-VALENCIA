@@ -1,0 +1,107 @@
+/* Tema visual del panel ARM: misma identidad que el panel de Apps Script (sobrio, azul Valencia). */
+:root{
+  --mid:#061633;--graf:#0B2150;--card2:#081B44;--hueso:#F3F6F6;--menta:#3DB4F0;--teal:#0032A2;
+  --line:rgba(61,180,240,.18);--mut:#9FB3D6;--warm:#E6C27A;--txt:#C9D6EE;--field:#07183F;
+  font-family:Jost,system-ui,Arial,sans-serif;color:var(--hueso);background:var(--mid)
+}
+body{
+  font-family:Jost,system-ui,Arial,sans-serif;color:var(--hueso);background:var(--mid);
+  background-image:radial-gradient(900px 520px at 88% -8%,rgba(0,50,162,.38),transparent 62%),radial-gradient(rgba(61,180,240,.11) 1px,transparent 1.3px);
+  background-size:100% 100%,26px 26px;background-attachment:fixed;min-height:100vh
+}
+p,small{color:var(--txt)}small{color:var(--mut)}
+a{color:var(--menta);text-decoration:none}a:hover{text-decoration:underline}
+
+/* Barra lateral */
+.sidebar{width:236px;background:rgba(4,14,36,.78);border-right:1px solid var(--line);padding:26px 16px;backdrop-filter:blur(8px)}
+.sidebrand{font-size:26px;font-weight:300;letter-spacing:.04em;padding:0 10px;color:var(--hueso)}
+.sidebrand b{font-weight:500;color:var(--menta)}
+.sidebrand small{font-size:11px;font-weight:400;color:var(--mut);letter-spacing:.2em;margin-top:6px;padding-bottom:0}
+.sidebar nav{margin:22px 0 18px}
+.sidebar nav button{position:relative;display:block;color:var(--mut);font-weight:400;font-size:15px;padding:11px 12px;border:0;border-radius:12px;margin-bottom:4px;background:none;transition:.2s}
+.sidebar nav button:hover{color:var(--hueso);background:rgba(255,255,255,.04)}
+.sidebar nav button.active{color:var(--hueso);background:var(--graf);border:0}
+.sidebar nav button.active::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:2px;border-radius:2px;background:var(--menta)}
+.sidebar>p{font-size:12px;color:var(--mut);line-height:1.5;padding:12px 10px 4px;border-top:1px solid var(--line)}
+.sidebar>a{font-size:13px;padding:0 10px}
+
+/* Cabecera y marco del contenido */
+.workspace header{border-bottom:1px solid var(--line);padding:18px 40px;background:transparent}
+.workspace header strong{font-weight:500;letter-spacing:.2em;font-size:12px;text-transform:uppercase;color:var(--menta)}
+.workspace header p{margin:3px 0 0;font-size:13px;color:var(--mut)}
+.workspace main{position:relative;max-width:1240px;margin:0;padding:34px 40px 64px}
+.workspace main::before,.workspace main::after{content:"";position:absolute;width:26px;height:26px;border:1px solid rgba(61,180,240,.28);pointer-events:none}
+.workspace main::before{top:14px;left:14px;border-right:0;border-bottom:0}
+.workspace main::after{bottom:14px;right:14px;border-left:0;border-top:0}
+h1{font-weight:300;font-size:clamp(1.7rem,3.2vw,2.4rem);letter-spacing:.07em;text-transform:uppercase;line-height:1.1;margin:.5rem 0 .4rem;color:var(--hueso)}
+h2{font-size:13px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--menta);margin:0 0 14px}
+h3{font-size:17px;font-weight:400;letter-spacing:.01em;color:var(--hueso);margin:.2rem 0 .35rem}
+
+/* Tarjetas */
+section{background:linear-gradient(180deg,var(--graf),#0A1D47);border:1px solid var(--line);border-radius:20px;padding:22px}
+.grid{gap:18px}
+.metric{display:block;font-size:38px;font-weight:300;letter-spacing:.01em;margin-top:4px;color:var(--hueso)}
+.grid>section:has(.metric)::before{content:"";display:block;width:30px;height:1px;background:var(--menta);margin-bottom:14px;position:relative}
+.grid>section:has(.metric)>h2{color:var(--mut);letter-spacing:.14em;font-size:12px;margin-bottom:2px}
+article{border-top:1px solid var(--line);padding:14px 0}
+article:first-of-type{border-top:0}
+article p{color:var(--txt)}
+
+/* Etiquetas */
+.badge{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:500;padding:6px 12px;border-radius:20px;border:1px solid var(--line);color:var(--hueso);background:rgba(11,33,80,.7);letter-spacing:.04em}
+.badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--warm)}
+
+/* Botones: secundario por defecto, principal con relleno */
+button{font:500 14px Jost,system-ui,sans-serif;color:var(--hueso);background:transparent;border:1px solid var(--line);border-radius:12px;padding:10px 16px;transition:.2s}
+button:hover:not(:disabled){border-color:var(--menta);transform:translateY(-1px)}
+main button.active{background:var(--menta);border-color:var(--menta);color:var(--mid)}
+main button.active:hover:not(:disabled){filter:brightness(1.08)}
+button:disabled{opacity:.4}
+
+/* Avisos y formularios */
+.notice{margin:1rem 0;padding:14px 16px;border:1px solid var(--line);background:rgba(11,33,80,.5);border-radius:14px;color:var(--txt);font-size:14px}
+label{font-size:13px;color:var(--mut);margin:.9rem 0 .3rem;letter-spacing:.02em}
+input,textarea,select{font:15px Jost,system-ui,sans-serif;background:var(--field);color:var(--hueso);border:1px solid var(--line);border-radius:12px;padding:10px 12px;outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--menta)}
+.notice select{margin-top:2px}
+
+/* Tablero de consultas */
+.kanban{gap:18px}
+.kanban>section{background:none;border:0;padding:0;border-radius:0}
+.kanban>section>h2{display:flex;justify-content:space-between;margin-bottom:14px}
+.kanban article{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;font-size:14px}
+.kanban article:first-of-type{border-top:1px solid var(--line)}
+.kanban article h3{font-size:15px;font-weight:500}
+.kanban article p{margin:8px 0 12px;line-height:1.45}
+
+/* Tablas y progreso */
+table{font-size:14px}
+th{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.16em;color:var(--mut);padding:8px 12px 12px;border-bottom:1px solid var(--line)}
+td{padding:15px 12px;border-bottom:1px solid rgba(61,180,240,.08);color:var(--txt)}
+tr:last-child td{border-bottom:0}
+progress{-webkit-appearance:none;appearance:none;height:6px;border:0;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden;accent-color:var(--menta)}
+progress::-webkit-progress-bar{background:rgba(255,255,255,.08);border-radius:6px}
+progress::-webkit-progress-value{background:linear-gradient(90deg,var(--teal),var(--menta));border-radius:6px}
+progress::-moz-progress-bar{background:linear-gradient(90deg,var(--teal),var(--menta));border-radius:6px}
+
+/* Ventanas */
+.overlay{background:rgba(3,9,24,.72);backdrop-filter:blur(6px)}
+.modal{background:var(--graf);border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:0 30px 60px rgba(0,0,0,.35)}
+.modal h2{font-size:24px;font-weight:300;letter-spacing:.04em;text-transform:none;color:var(--hueso);margin-bottom:6px}
+.modal h3{font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--menta);margin:18px 0 8px}
+
+/* Móvil */
+@media(max-width:900px){
+  .sidebar{background:rgba(4,14,36,.92);padding:12px}
+  .sidebar>p{display:none}
+  .sidebar nav{margin:10px 0}
+  .workspace header{padding:14px 16px}
+  .workspace main{padding:22px 16px 48px}
+  h1{font-size:1.6rem}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}button:hover:not(:disabled){transform:none}}
+
+/* Ajustes de composición */
+.grid:has(.metric){grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.workspace main>div>button{margin-bottom:18px}
+.sidebrand small{letter-spacing:.13em}

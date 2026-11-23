@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import './style.css';
 import Operation, { type OperationalTab } from './Operation';
 import './layout.css';
+import './theme.css';
 
 type Itinerary = { id: string; name: string; description: string; price: string; pdf: string; pdfUrl?: string; services?: {name:string; price:number}[] };
 const initial: Itinerary[] = [
