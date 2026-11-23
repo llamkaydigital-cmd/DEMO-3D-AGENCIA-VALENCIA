@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Panel operativo · Llamkay ARM</title>
+<style>
+:root{color-scheme:dark;--bg:#061126;--panel:#10213d;--line:#294467;--blue:#39b9f4;--text:#eff7ff;--muted:#acc0d8;--green:#73dfb5;--amber:#f5c76e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,sans-serif}a{color:var(--blue)}button,input{font:inherit}button,.button{border:1px solid var(--line);border-radius:9px;background:#173152;color:var(--text);padding:9px 14px;cursor:pointer;text-decoration:none}button:hover,.button:hover{border-color:var(--blue)}button.primary{background:#007fb8;border-color:#007fb8}header{border-bottom:1px solid var(--line);padding:18px 5%;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}header strong{letter-spacing:.12em}header span,.muted{color:var(--muted)}main{max-width:1200px;margin:auto;padding:26px 20px 70px}h1{font-size:clamp(27px,4vw,38px);margin:5px 0}h2{font-size:20px;margin:0 0 12px}h3{margin:0 0 7px;font-size:16px}.intro{max-width:800px;color:var(--muted)}.notice{background:#102d45;border:1px solid #225a78;border-radius:10px;padding:12px 16px;margin:22px 0}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}.tabs button.active{background:#007fb8;border-color:#007fb8}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:15px}.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}.box p{margin:6px 0;color:var(--muted)}.tag{display:inline-block;border:1px solid #47627a;border-radius:20px;padding:3px 9px;font-size:12px;color:var(--muted)}.tag.done{color:var(--green);border-color:#367b66}.tag.pending{color:var(--amber);border-color:#816b42}.value{font-size:25px;font-weight:650;color:var(--text);margin:6px 0}.list{padding:0;margin:10px 0;list-style:none}.list li{border-top:1px solid var(--line);padding:10px 0;display:flex;justify-content:space-between;gap:10px}.list li span:last-child{text-align:right}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.wide{grid-column:1/-1}label{display:block;color:var(--muted);font-size:13px;margin:12px 0 5px}input{width:100%;padding:10px;background:#09182c;border:1px solid var(--line);border-radius:8px;color:var(--text)}small{color:var(--muted)}[hidden]{display:none!important}
+</style>
+<style>
+select{width:100%;padding:10px;background:#09182c;border:1px solid var(--line);border-radius:8px;color:var(--text);font:inherit}.check{display:flex;align-items:center;gap:8px;margin-top:16px}.check input{width:auto}.catalog-item{border-top:1px solid var(--line);padding:12px 0}.catalog-item strong{color:var(--text)}.result-line{border-top:1px solid var(--line);padding:12px 0}.error{color:#ffaaa1}.message{white-space:pre-wrap;background:#09182c;padding:14px;border-radius:8px;color:var(--text)!important}
+</style>
+</head>
+<body>
+<header><div><strong>LLAMKAY ARM</strong><br><span>Panel operativo · Valencia Travel</span></div><a class="button" id="volver-3d" href="index.html">← Volver a la demo 3D</a></header>
+<main>
+<span class="tag pending">ENTORNO DE DEMOSTRACIÓN</span>
+<h1>Del recorrido a la operación</h1>
+<p class="intro">Consulta el caso ficticio de Sophie y cómo se reflejaría en el trabajo del equipo. Esta versión no usa datos de clientes ni está conectada a servicios externos.</p>
+<div class="notice" id="notice" role="status"></div>
+<nav class="tabs" aria-label="Secciones del panel"><button class="active" data-tab="caso" aria-pressed="true">Caso de Sophie</button><button data-tab="cotizador" aria-pressed="false">Crear borrador</button><button data-tab="integraciones" aria-pressed="false">Integraciones</button></nav>
+<section id="caso" aria-label="Caso de Sophie">
+<div class="grid">
+<article class="box"><h3>Viajera</h3><div class="value">Sophie</div><p>2 viajeros · Inglés · WhatsApp</p><p>Interés: Cusco y Short Inca Trail</p><span class="tag">Datos de ejemplo</span></article>
+<article class="box"><h3>Progreso del recorrido</h3><div class="value" id="progress">—</div><p id="progress-detail"></p><small>Se copia al abrir el panel desde la demo 3D.</small></article>
+<article class="box"><h3>Cotización ilustrativa</h3><div class="value">US$ 2,180</div><p>Por persona · 5 días</p><span class="tag pending">No es una tarifa real</span></article>
+<article class="box wide"><h2>Ficha operativa</h2><p>Los hitos reflejan la estación seleccionada al abrir el panel; no representan acciones reales ni una sincronización en vivo.</p><ul class="list" id="milestones"></ul></article>
+<article class="box wide"><h2>Itinerario de ejemplo</h2><p>Cusco · Valle Sagrado · Short Inca Trail · Machu Picchu · Despedida</p><small>Este contenido es ilustrativo; aún no se guarda en Microsoft 365 ni consulta TourPlan.</small></article>
+</div>
+</section>
+<section id="cotizador" aria-label="Crear borrador" hidden>
+<div class="notice">Catálogo y tarifas ficticios, disponibles solo en esta página. No se consulta Microsoft 365, TourPlan ni IA. No introduzcas datos personales reales.</div>
+<div class="grid">
+<article class="box"><h2>Catálogo de ejemplo</h2><div id="catalogo"></div><p><small>En una implementación futura, una persona revisaría y aprobaría la información procedente de documentos corporativos.</small></p></article>
+<article class="box"><h2>Consulta de ejemplo</h2>
+<form id="quote-form">
+<label for="nombre">Nombre ficticio</label><input id="nombre" maxlength="60" value="Sophie" required>
+<label for="programa">Programa</label><select id="programa" required></select>
+<label for="viajeros">Número de viajeros</label><input id="viajeros" type="number" min="1" max="20" value="2" required>
+<label for="fecha">Fecha de viaje</label><input id="fecha" type="date" value="2027-09-15" required>
+<label for="escenario">Escenario simulado</label><select id="escenario"><option value="normal">Tarifa y disponibilidad válidas</option><option value="offline">TourPlan sin respuesta</option><option value="expired">Tarifa vencida</option><option value="pending">Servicio por confirmar</option></select>
+<label class="check"><input type="checkbox" id="preliminar"> Permitir cotización preliminar para servicios pendientes</label>
+<div class="actions"><button type="submit" class="primary">Generar borrador</button></div>
+</form></article>
+<article class="box" id="resultado" aria-live="polite"><h2>Borrador de cotización</h2><p>Completa la consulta y genera un borrador para revisarlo.</p></article>
+</div>
+</section>
+<section id="integraciones" aria-label="Integraciones" hidden>
+<div class="notice">Preparación visual: estos campos no se guardan ni conectan servicios. No introduzcas contraseñas, tokens ni datos reales.</div>
+<div class="grid">
+<article class="box"><h2>HubSpot</h2><span class="tag pending">No conectado</span><p>CRM para contactos, oportunidades y etapas comerciales.</p><label for="hub">Identificador de cuenta (ejemplo)</label><input id="hub" placeholder="Pendiente de configuración" disabled><p><small>La autorización segura y la sincronización están pendientes de implementación.</small></p></article>
+<article class="box"><h2>TourPlan</h2><span class="tag pending">Por validar</span><p>Fuente prevista de programas, servicios y tarifas.</p><label for="tour">Datos de conexión</label><input id="tour" placeholder="Dependiente de la API disponible" disabled><p><small>La conexión y su alcance dependen de la documentación y acceso del proveedor.</small></p></article>
+<article class="box"><h2>Microsoft 365</h2><span class="tag pending">No conectado</span><p>Acceso corporativo y posible almacenamiento de itinerarios en SharePoint o OneDrive empresarial.</p><label for="ms">Organización</label><input id="ms" placeholder="Pendiente de configuración" disabled><p><small>El inicio de sesión y almacenamiento corporativo aún no están implementados.</small></p></article>
+</div>
+</section>
+</main>
+<script>
+(()=>{'use strict';
+const labels=['Vista general','Canales de entrada','Recepción con IA','Perfil y HubSpot','Diseño del itinerario','Control y aprobación','Cobro y depósito','Seguimiento y campañas','Reservas y operaciones','Panel de gerencia','Seguridad y entrega'];
+const items=[['Contacto por WhatsApp',1],['Perfil del viaje',2],['Registro en HubSpot (simulado)',3],['Itinerario de ejemplo',4],['Cotización aprobada (simulada)',5],['Depósito recibido (simulado)',6],['Seguimiento programado',7],['Reservas y operaciones',8]];
+if(location.hostname==='arm.llamkaydigitals.com')document.getElementById('volver-3d').href='https://demo3d.llamkaydigitals.com/';
+let state=null;const raw=new URLSearchParams(location.search).get('paso');if(raw!==null&&/^(0|[1-9]\d*)$/.test(raw)){const n=Number(raw);if(Number.isInteger(n)&&n>=0&&n<labels.length)state={step:n};}
+const step=state?state.step:0;
+document.querySelector('#notice').textContent=state?'Caso de ejemplo recibido de la demo 3D. El progreso corresponde a la estación seleccionada al abrir este panel.':'Aún no se ha enviado un recorrido desde la demo 3D. Se muestra el caso de ejemplo sin progreso.';
+document.querySelector('#progress').textContent=state?`${step} / 10`:'Sin iniciar';
+document.querySelector('#progress-detail').textContent=state?labels[step]:'Abre el panel desde cualquier estación del recorrido 3D.';
+const list=document.querySelector('#milestones');items.forEach(([name,at])=>{const li=document.createElement('li'),title=document.createElement('span'),status=document.createElement('span');title.textContent=name;status.className='tag '+(state&&step>=at?'done':'');status.textContent=state&&step>=at?'Alcanzado en el recorrido':'Pendiente';li.append(title,status);list.append(li);});
+document.querySelectorAll('[data-tab]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-tab]').forEach(b=>{const active=b===button;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});['caso','cotizador','integraciones'].forEach(id=>document.getElementById(id).hidden=id!==button.dataset.tab);}));
+})();
+</script>
+<script src="cotizador.js"></script>
+</body>
+</html>

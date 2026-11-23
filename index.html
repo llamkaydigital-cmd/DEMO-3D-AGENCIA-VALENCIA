@@ -56,7 +56,7 @@ canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:
 .m.sys{align-self:center;background:rgba(63,191,143,.18);color:#9ff0cf;font-size:11px;border-radius:99px;padding:4px 10px}
 @keyframes pop{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
 #phone .in{margin:6px 10px 10px;padding:8px 12px;border-radius:99px;background:rgba(255,255,255,.08);font-size:12px;color:var(--mut)}
-#bar{left:50%;transform:translateX(-50%);bottom:16px;padding:8px 10px;display:flex;align-items:center;gap:8px;max-width:calc(100vw - 20px)}
+#bar{left:50%;transform:translateX(-50%);bottom:16px;padding:8px 10px;display:flex;align-items:center;gap:8px;max-width:calc(100vw - 20px);overflow-x:auto}
 button{font:inherit;color:var(--white);background:transparent;border:1px solid rgba(0,152,222,.5);border-radius:10px;padding:7px 12px;font-size:13px;cursor:pointer;white-space:nowrap}
 button:hover{background:rgba(0,152,222,.18)}
 button.pri{background:var(--blue);color:#fff;border-color:var(--blue);font-weight:500}
@@ -75,6 +75,8 @@ body.v-viajero #hc{display:none}
 @media (max-width:1180px){#phone{display:none}#note{display:none}}
 @media (max-width:980px){#hc{display:none}#card{bottom:78px;max-height:42vh}}
 @media (max-width:560px){#dots{display:none}#brand span{display:none}}
+@media (max-width:1180px){body.v-viajero #phone{display:flex;transform:scale(.78)}body.v-viajero #card{bottom:80px;width:min(280px,calc(100vw - 28px));max-height:20vh}body.v-viajero #phone{bottom:80px}}
+@media (max-width:560px){body.v-viajero #phone{right:8px;bottom:80px;transform:scale(.68)}body.v-viajero #card{bottom:80px;width:150px}}
 </style>
 </head>
 <body class="v-ambos">
@@ -94,6 +96,7 @@ body.v-viajero #hc{display:none}
 <div id="dots"></div>
 <button id="over">Vista general</button>
 <button id="free">Explorar</button>
+<button id="panel">Panel operativo ↗</button>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
@@ -352,7 +355,7 @@ function furnish(r){curSecs=r.secs=[];const X=lx=>r.cx+lx,Z=lz=>r.cz+lz;
    qt.needsUpdate=true;}
   drawQ(0);
   const sc=new THREE.Mesh(new THREE.PlaneGeometry(4.8,3.0),new THREE.MeshBasicMaterial({map:qt,transparent:true,side:THREE.DoubleSide,depthWrite:false,fog:false}));sc.position.set(X(.9),3.0,Z(-2.0));sc.rotation.x=-.28;sc.renderOrder=4;scene.add(sc);sc.scale.setScalar(.01);
-  const tag=labelSprite('Falla simulada · Todo vigente',COL.amb,4.8);tag.position.set(X(.9),5.2,Z(-2.0));scene.add(tag);
+   const tag=labelSprite('Escenarios de validación simulados',COL.amb,4.8);tag.position.set(X(.9),5.2,Z(-2.0));scene.add(tag);
   const stamp=Tor(scene,.5,.09,COL.grn,X(2.7),1.7,Z(.9),{em:COL.grn,ei:.9},0);stamp.scale.setScalar(.01);
   const ap=labelSprite('✔ Aprobado por una persona',COL.grn,4.2);ap.position.set(X(2.7),2.8,Z(.9));ap.material.opacity=0;scene.add(ap);
   const nt=labelSprite('*TourPlan: conexión por validar · segunda vía: tarifario ARM',COL.amb,6.8);nt.position.set(X(0),.0+.9,Z(1.9));scene.add(nt);
@@ -521,7 +524,11 @@ function goStep(i){mode='tour';focusRoom=null;i=Math.max(0,Math.min(steps.length
  if(s.kind==='walk')syncChatPrior();}
 function syncChatPrior(){chatTimers.forEach(clearTimeout);chatTimers=[];const prior=allMsgs(step,false);msgsEl.innerHTML='';prior.forEach(m=>msgsEl.appendChild(msgEl(m)));msgsEl.scrollTop=msgsEl.scrollHeight;}
 function phoneVis(){const s=steps[step];if(s.kind==='admin'){msgsEl.innerHTML='';const m=document.createElement('div');m.className='m sys';m.textContent='Esta estación es del equipo, no del viajero';msgsEl.appendChild(m);}}
-function goOverview(){mode='free';focusRoom=null;playing=false;azOff=polOff=0;zoom=1;showCard({part:'Vista general',title:'Explora la agencia',tag:'Libre',text:'Toca un ambiente para ver qué hace en el sistema. Gira con el dedo o el mouse y acerca con la rueda.',bullets:[],who:''},null);hcUpdate();setBtns();}
+ function goOverview(){mode='free';focusRoom=null;playing=false;azOff=polOff=0;zoom=1;showCard({part:'Vista general',title:'Explora la agencia',tag:'Libre',text:'Toca un ambiente para ver qué hace en el sistema. Gira con el dedo o el mouse y acerca con la rueda.',bullets:[],who:''},null);hcUpdate();setBtns();}
+ $('#panel').onclick=()=>{
+  const url=location.hostname==='demo3d.llamkaydigitals.com'?'https://arm.llamkaydigitals.com/':'panel.html';
+  window.location.href=url+'?paso='+encodeURIComponent(step);
+ };
 function nextSeq(d){const k=seq.indexOf(step);goStep(seq[clamp(k+d,0,seq.length-1)]);}
 $('#next').onclick=()=>{if(mode==='free')goStep(step);else nextSeq(1);};
 $('#prev').onclick=()=>{if(mode==='free')goStep(step);else nextSeq(-1);};

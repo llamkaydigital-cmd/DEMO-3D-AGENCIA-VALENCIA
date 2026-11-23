@@ -1,0 +1,24 @@
+services:
+  llamkay-valencia-demo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=veritaz"
+      - "traefik.http.routers.llamkay-valencia-3d.rule=Host(`demo3d.llamkaydigitals.com`)"
+      - "traefik.http.routers.llamkay-valencia-3d.entrypoints=websecure"
+      - "traefik.http.routers.llamkay-valencia-3d.tls.certresolver=mytlschallenge"
+      - "traefik.http.routers.llamkay-valencia-3d.service=llamkay-valencia-demo"
+      - "traefik.http.routers.llamkay-valencia-arm.rule=Host(`arm.llamkaydigitals.com`)"
+      - "traefik.http.routers.llamkay-valencia-arm.entrypoints=websecure"
+      - "traefik.http.routers.llamkay-valencia-arm.tls.certresolver=mytlschallenge"
+      - "traefik.http.routers.llamkay-valencia-arm.service=llamkay-valencia-demo"
+      - "traefik.http.services.llamkay-valencia-demo.loadbalancer.server.port=80"
+    networks:
+      - veritaz
+
+networks:
+  veritaz:
+    external: true
